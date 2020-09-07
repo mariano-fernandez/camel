@@ -151,14 +151,14 @@ provide the dynamic parts in Camel message headers (if possible).
 === Using static endpoints
 
 In the example above then the parameter `userid` is dynamic computed, and would result in one instance of endpoint and producer
-for each different userid. To avoid having too dynamic endpoints you use a single static endpoint and use headers to provide the dynamic parts:
+for each different userid. To avoid having too many dynamic endpoints you use a single static endpoint and use headers to provide the dynamic parts:
 
 [source,java]
 ----
 from("direct:login")
   .setHeader(Exchange.HTTP_PATH, constant("/login"))
   .setHeader(Exchange.HTTP_QUERY, simple("userid=${header.userName}"))
-  .toD("http:myloginserver:8080");
+  .to("http:myloginserver:8080");
 ----
 
 However, you can use its optimised components for `toD` that can _solve_ this out of the box,
